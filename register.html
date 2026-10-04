@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Create Account — NOVAEARN</title>
+
+  <meta
+    name="description"
+    content="Create your NOVAEARN account and start your earning journey."
+  />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --blue: #1769ff;
+      --blue-dark: #0d47c9;
+      --purple: #722cff;
+      --green: #13c77a;
+      --gold: #ffb020;
+      --navy: #0b1736;
+      --text: #14213d;
+      --muted: #64748b;
+      --light: #f5f8ff;
+      --white: #ffffff;
+      --border: #e2e8f0;
+      --danger: #ef4444;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(23,105,255,.12), transparent 30%),
+        radial-gradient(circle at 90% 20%, rgba(114,44,255,.12), transparent 30%),
+        var(--light);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* NAVBAR */
+
+    nav {
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 6%;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(15px);
+      border-bottom: 1px solid rgba(226,232,240,.8);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    .logo span {
+      color: var(--purple);
+    }
+
+    .back-home {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 14px;
+      padding: 10px 18px;
+      border-radius: 12px;
+      transition: .25s;
+    }
+
+    .back-home:hover {
+      background: #eef4ff;
+      color: var(--blue);
+    }
+
+    /* MAIN */
+
+    .page {
+      min-height: calc(100vh - 76px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 55px 20px;
+    }
+
+    .register-wrapper {
+      width: 100%;
+      max-width: 1050px;
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      background: var(--white);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 25px 70px rgba(15, 35, 80, .15);
+      border: 1px solid rgba(226,232,240,.8);
+    }
+
+    /* LEFT SIDE */
+
+    .welcome-panel {
+      position: relative;
+      overflow: hidden;
+      padding: 55px 45px;
+      color: white;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.18), transparent 25%),
+        radial-gradient(circle at 80% 80%, rgba(19,199,122,.25), transparent 30%),
+        linear-gradient(145deg, #0d47c9, #1769ff 48%, #722cff);
+    }
+
+    .welcome-panel::before,
+    .welcome-panel::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.14);
+    }
+
+    .welcome-panel::before {
+      width: 280px;
+      height: 280px;
+      right: -120px;
+      top: -80px;
+    }
+
+    .welcome-panel::after {
+      width: 350px;
+      height: 350px;
+      left: -190px;
+      bottom: -180px;
+    }
+
+    .welcome-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .mini-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 13px;
+      background: rgba(255,255,255,.13);
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 25px;
+    }
+
+    .welcome-panel h1 {
+      font-size: 43px;
+      line-height: 1.08;
+      margin-bottom: 18px;
+      letter-spacing: -1.5px;
+    }
+
+    .welcome-panel h1 span {
+      color: #8fffc9;
+    }
+
+    .welcome-panel p {
+      color: rgba(255,255,255,.82);
+      line-height: 1.7;
+      font-size: 15px;
+      max-width: 390px;
+    }
+
+    .benefits {
+      margin-top: 35px;
+      display: grid;
+      gap: 17px;
+    }
+
+    .benefit {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+    }
+
+    .benefit-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: rgba(255,255,255,.13);
+      border: 1px solid rgba(255,255,255,.15);
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .benefit strong {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 3px;
+    }
+
+    .benefit small {
+      color: rgba(255,255,255,.7);
+      font-size: 12px;
+    }
+
+    /* FORM SIDE */
+
+    .form-panel {
+      padding: 45px;
+    }
+
+    .form-heading {
+      margin-bottom: 28px;
+    }
+
+    .form-heading h2 {
+      font-size: 29px;
+      margin-bottom: 8px;
+      letter-spacing: -.7px;
+    }
+
+    .form-heading p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    input,
+    select {
+      width: 100%;
+      height: 50px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 0 15px;
+      font-size: 14px;
+      outline: none;
+      background: #fbfdff;
+      color: var(--text);
+      transition: .2s;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 4px rgba(23,105,255,.1);
+      background: white;
+    }
+
+    .phone-row {
+      display: grid;
+      grid-template-columns: 115px 1fr;
+      gap: 9px;
+    }
+
+    .password-wrap {
+      position: relative;
+    }
+
+    .password-wrap input {
+      padding-right: 55px;
+    }
+
+    .show-password {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .terms {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .terms input {
+      width: 17px;
+      height: 17px;
+      margin-top: 1px;
+      accent-color: var(--blue);
+      flex-shrink: 0;
+    }
+
+    .terms a {
+      color: var(--blue);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .create-btn {
+      width: 100%;
+      height: 54px;
+      border: 0;
+      border-radius: 14px;
+      margin-top: 22px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      color: white;
+      font-size: 15px;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 12px 25px rgba(23,105,255,.22);
+      transition: .25s;
+    }
+
+    .create-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 30px rgba(23,105,255,.28);
+    }
+
+    .login-area {
+      text-align: center;
+      margin-top: 22px;
+      padding-top: 21px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .login-area a {
+      color: var(--blue);
+      font-weight: 900;
+      text-decoration: none;
+      margin-left: 4px;
+    }
+
+    .security {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 7px;
+      margin-top: 17px;
+      color: #7a879a;
+      font-size: 11px;
+    }
+
+    /* MESSAGE */
+
+    .message {
+      display: none;
+      margin-top: 15px;
+      padding: 12px 14px;
+      border-radius: 11px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .message.error {
+      display: block;
+      background: #fff1f2;
+      color: var(--danger);
+      border: 1px solid #fecdd3;
+    }
+
+    .message.success {
+      display: block;
+      background: #ecfdf5;
+      color: #087443;
+      border: 1px solid #a7f3d0;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 850px) {
+      .register-wrapper {
+        grid-template-columns: 1fr;
+        max-width: 650px;
+      }
+
+      .welcome-panel {
+        padding: 38px 35px;
+      }
+
+      .welcome-panel h1 {
+        font-size: 35px;
+      }
+
+      .benefits {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      nav {
+        padding: 0 20px;
+      }
+
+      .page {
+        padding: 25px 12px;
+      }
+
+      .welcome-panel,
+      .form-panel {
+        padding: 30px 22px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .field.full {
+        grid-column: auto;
+      }
+
+      .benefits {
+        grid-template-columns: 1fr;
+      }
+
+      .phone-row {
+        grid-template-columns: 100px 1fr;
+      }
+
+      .welcome-panel h1 {
+        font-size: 31px;
+      }
+
+      .back-home {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a href="index.html" class="logo">
+      NOVA<span>EARN</span>
+    </a>
+
+    <a href="index.html" class="back-home">
+      ← Back to Home
+    </a>
+  </nav>
+
+
+  <!-- REGISTRATION PAGE -->
+  <main class="page">
+
+    <section class="register-wrapper">
+
+      <!-- LEFT PANEL -->
+      <div class="welcome-panel">
+
+        <div class="welcome-content">
+
+          <div class="mini-badge">
+            ✨ Welcome to NOVAEARN
+          </div>
+
+          <h1>
+            Start your journey.<br>
+            <span>Earn & Grow.</span>
+          </h1>
+
+          <p>
+            Create your NOVAEARN account and discover exciting
+            ways to earn, learn, explore and grow from one platform.
+          </p>
+
+          <div class="benefits">
+
+            <div class="benefit">
+              <div class="benefit-icon">💰</div>
+              <div>
+                <strong>Multiple Ways to Earn</strong>
+                <small>Explore activities that match you.</small>
+              </div>
+            </div>
+
+            <div class="benefit">
+              <div class="benefit-icon">🌍</div>
+              <div>
+                <strong>Global Platform</strong>
+                <small>Support for multiple countries and currencies.</small>
+              </div>
+            </div>
+
+            <div class="benefit">
+              <div class="benefit-icon">🎁</div>
+              <div>
+                <strong>Rewards & Opportunities</strong>
+                <small>Discover new activities and rewards.</small>
+              </div>
+            </div>
+
+            <div class="benefit">
+              <div class="benefit-icon">🔐</div>
+              <div>
+                <strong>Account Security</strong>
+                <small>Your account is designed with security in mind.</small>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- FORM PANEL -->
+      <div class="form-panel">
+
+        <div class="form-heading">
+          <h2>Create your account</h2>
+          <p>
+            Join NOVAEARN in a few simple steps.
+            It only takes a moment.
+          </p>
+        </div>
+
+
+        <form id="registerForm">
+
+          <div class="form-grid">
+
+            <!-- USERNAME -->
+            <div class="field full">
+              <label for="username">Username</label>
+
+              <input
+                type="text"
+                id="username"
+                name="username"
+                placeholder="Choose your username"
+                autocomplete="username"
+                required
+              />
+            </div>
+
+
+            <!-- PHONE -->
+            <div class="field">
+              <label for="countryCode">Phone Number</label>
+
+              <div class="phone-row">
+
+                <select id="countryCode" name="countryCode">
+                  <option value="+254">🇰🇪 +254</option>
+                  <option value="+233">🇬🇭 +233</option>
+                  <option value="+237">🇨🇲 +237</option>
+                  <option value="+256">🇺🇬 +256</option>
+                  <option value="+1">🇺🇸 +1</option>
+                  <option value="+44">🇬🇧 +44</option>
+                  <option value="+27">🇿🇦 +27</option>
+                  <option value="+234">🇳🇬 +234</option>
+                  <option value="+255">🇹🇿 +255</option>
+                  <option value="+250">🇷🇼 +250</option>
+                </select>
+
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  placeholder="712345678"
+                  autocomplete="tel"
+                  required
+                />
+
+              </div>
+            </div>
+
+
+            <!-- EMAIL -->
+            <div class="field">
+              <label for="email">Email Address</label>
+
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="you@example.com"
+                autocomplete="email"
+                required
+              />
+            </div>
+
+
+            <!-- COUNTRY -->
+            <div class="field full">
+              <label for="country">Country</label>
+
+              <select id="country" name="country" required>
+
+                <option value="">Select your country</option>
+
+                <option value="Kenya" data-currency="KES">
+                  🇰🇪 Kenya — KES
+                </option>
+
+                <option value="Ghana" data-currency="GHS">
+                  🇬🇭 Ghana — GHS
+                </option>
+
+                <option value="Cameroon" data-currency="XAF">
+                  🇨🇲 Cameroon — XAF
+                </option>
+
+                <option value="Uganda" data-currency="UGX">
+                  🇺🇬 Uganda — UGX
+                </option>
+
+                <option value="United States" data-currency="USD">
+                  🇺🇸 United States — USD
+                </option>
+
+                <option value="Nigeria">
+                  🇳🇬 Nigeria
+                </option>
+
+                <option value="Tanzania">
+                  🇹🇿 Tanzania
+                </option>
+
+                <option value="Rwanda">
+                  🇷🇼 Rwanda
+                </option>
+
+                <option value="South Africa">
+                  🇿🇦 South Africa
+                </option>
+
+                <option value="United Kingdom">
+                  🇬🇧 United Kingdom
+                </option>
+
+                <option value="Other">
+                  🌍 Other
+                </option>
+
+              </select>
+            </div>
+
+
+            <!-- PASSWORD -->
+            <div class="field">
+              <label for="password">Password</label>
+
+              <div class="password-wrap">
+
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  placeholder="Create a password"
+                  autocomplete="new-password"
+                  minlength="8"
+                  required
+                />
+
+                <button
+                  type="button"
+                  class="show-password"
+                  onclick="togglePassword('password', this)"
+                >
+                  Show
+                </button>
+
+              </div>
+            </div>
+
+
+            <!-- CONFIRM PASSWORD -->
+            <div class="field">
+              <label for="confirmPassword">Confirm Password</label>
+
+              <div class="password-wrap">
+
+                <input
+                  type="password"
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  placeholder="Repeat your password"
+                  autocomplete="new-password"
+                  minlength="8"
+                  required
+                />
+
+                <button
+                  type="button"
+                  class="show-password"
+                  onclick="togglePassword('confirmPassword', this)"
+                >
+                  Show
+                </button>
+
+              </div>
+            </div>
+
+          </div>
+
+
+          <!-- TERMS -->
+          <label class="terms">
+
+            <input
+              type="checkbox"
+              id="terms"
+              required
+            />
+
+            <span>
+              I agree to the
+              <a href="#" onclick="return false;">Terms of Service</a>
+              and
+              <a href="#" onclick="return false;">Privacy Policy</a>.
+            </span>
+
+          </label>
+
+
+          <!-- MESSAGE -->
+          <div id="message" class="message"></div>
+
+
+          <!-- CREATE ACCOUNT -->
+          <button
+            type="submit"
+            class="create-btn"
+          >
+            Create My NOVAEARN Account 🚀
+          </button>
+
+
+          <!-- LOGIN -->
+          <div class="login-area">
+
+            Already have an account?
+
+            <a href="login.html">
+              Login
+            </a>
+
+          </div>
+
+
+          <!-- SECURITY -->
+          <div class="security">
+            🔒 Your information is protected
+          </div>
+
+        </form>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <script>
+
+    /* SHOW / HIDE PASSWORD */
+
+    function togglePassword(id, button) {
+
+      const input = document.getElementById(id);
+
+      if (input.type === "password") {
+
+        input.type = "text";
+        button.textContent = "Hide";
+
+      } else {
+
+        input.type = "password";
+        button.textContent = "Show";
+
+      }
+
+    }
+
+
+    /* COUNTRY → PHONE CODE */
+
+    const country = document.getElementById("country");
+    const countryCode = document.getElementById("countryCode");
+
+    const countryCodes = {
+
+      "Kenya": "+254",
+      "Ghana": "+233",
+      "Cameroon": "+237",
+      "Uganda": "+256",
+      "United States": "+1",
+      "United Kingdom": "+44",
+      "South Africa": "+27",
+      "Nigeria": "+234",
+      "Tanzania": "+255",
+      "Rwanda": "+250"
+
+    };
+
+
+    country.addEventListener("change", function() {
+
+      const selectedCountry = this.value;
+
+      if (countryCodes[selectedCountry]) {
+
+        countryCode.value = countryCodes[selectedCountry];
+
+      }
+
+    });
+
+
+    /* FORM VALIDATION */
+
+    document
+      .getElementById("registerForm")
+      .addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        const username =
+          document.getElementById("username").value.trim();
+
+        const email =
+          document.getElementById("email").value.trim();
+
+        const phone =
+          document.getElementById("phone").value.trim();
+
+        const selectedCountry =
+          document.getElementById("country").value;
+
+        const password =
+          document.getElementById("password").value;
+
+        const confirmPassword =
+          document.getElementById("confirmPassword").value;
+
+        const terms =
+          document.getElementById("terms").checked;
+
+        const message =
+          document.getElementById("message");
+
+
+        message.className = "message";
+
+
+        /* USERNAME */
+
+        if (username.length < 3) {
+
+          message.textContent =
+            "Please choose a username with at least 3 characters.";
+
+          message.classList.add("error");
+
+          return;
+
+        }
+
+
+        /* PHONE */
+
+        if (phone.length < 6) {
+
+          message.textContent =
+            "Please enter a valid phone number.";
+
+          message.classList.add("error");
+
+          return;
+
+        }
+
+
+        /* COUNTRY */
+
+        if (!selectedCountry) {
+
+          message.textContent =
+            "Please select your country.";
+
+          message.classList.add("error");
+
+          return;
+
+        }
+
+
+        /* PASSWORD */
+
+        if (password.length < 8) {
+
+          message.textContent =
+            "Your password must contain at least 8 characters.";
+
+          message.classList.add("error");
+
+          return;
+
+        }
+
+
+        /* CONFIRM PASSWORD */
+
+        if (password !== confirmPassword) {
+
+          message.textContent =
+            "The passwords do not match.";
+
+          message.classList.add("error");
+
+          return;
+
+        }
+
+
+        /* TERMS */
+
+        if (!terms) {
+
+          message.textContent =
+            "Please agree to the Terms and Privacy Policy.";
+
+          message.classList.add("error");
+
+          return;
+
+        }
+
+
+        /* DEMO SUCCESS */
+
+        message.textContent =
+          "Registration details look good! Account creation will be connected to secure authentication in the next step.";
+
+        message.classList.add("success");
+
+      });
+
+  </script>
+
+</body>
+</html>
