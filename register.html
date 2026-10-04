@@ -554,7 +554,7 @@
         </div>
 
 
-        <form id="registerForm">
+        <form onsubmit="registerUser(event)">
 
           <div class="form-grid">
 
@@ -579,7 +579,7 @@
 
               <div class="phone-row">
 
-                <select id="countryCode" name="countryCode">
+                <select id="phoneCode" name="countryCode">
                   <option value="+254">🇰🇪 +254</option>
                   <option value="+233">🇬🇭 +233</option>
                   <option value="+237">🇨🇲 +237</option>
@@ -792,193 +792,108 @@
   </main>
 
 
-  <script>
+ <script>
+function togglePassword(id, button) {
+    const input = document.getElementById(id);
 
-    /* SHOW / HIDE PASSWORD */
-
-    function togglePassword(id, button) {
-
-      const input = document.getElementById(id);
-
-      if (input.type === "password") {
-
+    if (input.type === "password") {
         input.type = "text";
         button.textContent = "Hide";
-
-      } else {
-
+    } else {
         input.type = "password";
         button.textContent = "Show";
+    }
+}
 
-      }
+const countryData = {
+    Kenya: {
+        code: "+254",
+        currency: "KES",
+        flag: "🇰🇪"
+    },
+    Ghana: {
+        code: "+233",
+        currency: "GHS",
+        flag: "🇬🇭"
+    },
+    Cameroon: {
+        code: "+237",
+        currency: "XAF",
+        flag: "🇨🇲"
+    },
+    Uganda: {
+        code: "+256",
+        currency: "UGX",
+        flag: "🇺🇬"
+    },
+    "United States": {
+        code: "+1",
+        currency: "USD",
+        flag: "🇺🇸"
+    }
+};
 
+function updateCountry() {
+    const country = document.getElementById("country").value;
+    const phoneCode = document.getElementById("phoneCode");
+
+    if (countryData[country]) {
+        phoneCode.value = countryData[country].code;
+    }
+}
+
+function registerUser(event) {
+    event.preventDefault();
+
+    const username = document.getElementById("username").value.trim();
+    const phoneCode = document.getElementById("phoneCode").value;
+    const phone = document.getElementById("phone").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const country = document.getElementById("country").value;
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+    const terms = document.getElementById("terms").checked;
+
+    if (!username || !phone || !email || !country || !password || !confirmPassword) {
+        alert("Please complete all required fields.");
+        return;
     }
 
+    if (password.length < 6) {
+        alert("Password must contain at least 6 characters.");
+        return;
+    }
 
-    /* COUNTRY → PHONE CODE */
+    if (password !== confirmPassword) {
+        alert("Passwords do not match.");
+        return;
+    }
 
-    const country = document.getElementById("country");
-    const countryCode = document.getElementById("countryCode");
+    if (!terms) {
+        alert("Please accept the Terms and Privacy Policy.");
+        return;
+    }
 
-    const countryCodes = {
-
-      "Kenya": "+254",
-      "Ghana": "+233",
-      "Cameroon": "+237",
-      "Uganda": "+256",
-      "United States": "+1",
-      "United Kingdom": "+44",
-      "South Africa": "+27",
-      "Nigeria": "+234",
-      "Tanzania": "+255",
-      "Rwanda": "+250"
-
+    const selectedCountry = countryData[country] || {
+        currency: "USD",
+        flag: "🌍"
     };
 
-
-    country.addEventListener("change", function() {
-
-      const selectedCountry = this.value;
-
-      if (countryCodes[selectedCountry]) {
-
-        countryCode.value = countryCodes[selectedCountry];
-
-      }
-
-    });
-
-
-    /* FORM VALIDATION */
-
-    document
-      .getElementById("registerForm")
-      .addEventListener("submit", function(event) {
-
-        event.preventDefault();
-
-        const username =
-          document.getElementById("username").value.trim();
-
-        const email =
-          document.getElementById("email").value.trim();
-
-        const phone =
-          document.getElementById("phone").value.trim();
-
-        const selectedCountry =
-          document.getElementById("country").value;
-
-        const password =
-          document.getElementById("password").value;
-
-        const confirmPassword =
-          document.getElementById("confirmPassword").value;
-
-        const terms =
-          document.getElementById("terms").checked;
-
-        const message =
-          document.getElementById("message");
-
-
-        message.className = "message";
-
-
-        /* USERNAME */
-
-        if (username.length < 3) {
-
-          message.textContent =
-            "Please choose a username with at least 3 characters.";
-
-          message.classList.add("error");
-
-          return;
-
-        }
-
-
-        /* PHONE */
-
-        if (phone.length < 6) {
-
-          message.textContent =
-            "Please enter a valid phone number.";
-
-          message.classList.add("error");
-
-          return;
-
-        }
-
-
-        /* COUNTRY */
-
-        if (!selectedCountry) {
-
-          message.textContent =
-            "Please select your country.";
-
-          message.classList.add("error");
-
-          return;
-
-        }
-
-
-        /* PASSWORD */
-
-        if (password.length < 8) {
-
-          message.textContent =
-            "Your password must contain at least 8 characters.";
-
-          message.classList.add("error");
-
-          return;
-
-        }
-
-
-        /* CONFIRM PASSWORD */
-
-        if (password !== confirmPassword) {
-
-          message.textContent =
-            "The passwords do not match.";
-
-          message.classList.add("error");
-
-          return;
-
-        }
-
-
-        /* TERMS */
-
-        if (!terms) {
-
-          message.textContent =
-            "Please agree to the Terms and Privacy Policy.";
-
-          message.classList.add("error");
-
-          return;
-
-        }
-
-
-        /* DEMO SUCCESS */
-
-        message.textContent =
-          "Registration details look good! Account creation will be connected to secure authentication in the next step.";
-
-        message.classList.add("success");
-
-      });
-
-  </script>
-
+    const user = {
+        username: username,
+        phone: phoneCode + phone,
+        email: email,
+        country: country,
+        currency: selectedCountry.currency,
+        flag: selectedCountry.flag
+    };
+
+    localStorage.setItem("novaearnUser", JSON.stringify(user));
+
+    alert("Account created successfully! Welcome to NOVAEARN.");
+
+    window.location.href = "dashboard.html";
+}
+</script>
 </body>
 </html>
