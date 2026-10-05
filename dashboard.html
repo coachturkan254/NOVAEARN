@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>NOVAEARN — Dashboard</title>
 
   <style>
@@ -211,6 +210,7 @@
       border-right: 1px solid var(--border);
       padding: 24px 14px;
       z-index: 900;
+      overflow-y: auto;
     }
 
     .nav-title {
@@ -1005,7 +1005,7 @@
     <div class="top-actions">
 
       <div class="country-selector">
-        <span id="topFlag">🇰🇪</span>
+        <span id="topFlag">🌍</span>
 
         <select id="countrySelect" onchange="changeCountry()">
           <option value="KE">Kenya (KES)</option>
@@ -1023,16 +1023,22 @@
         <span class="active">🌙</span>
       </button>
 
-      <button class="icon-button" onclick="showMessage('You have 3 new notifications 🔔')">
+      <button
+        class="icon-button"
+        onclick="showMessage('You have 3 new notifications 🔔')"
+      >
         🔔
       </button>
 
       <div class="profile">
-        <div class="avatar">T</div>
+
+        <div class="avatar" id="avatarLetter">N</div>
+
         <div class="profile-info">
-          <strong>Turkan 👑</strong>
+          <strong data-username>NOVAEARN User</strong>
           <small>● Premium Member</small>
         </div>
+
       </div>
 
     </div>
@@ -1094,14 +1100,15 @@
       Settings
     </a>
 
-    <a href="index.html" class="nav-link">
+    <a href="login.html" class="nav-link" onclick="logoutUser()">
       <span class="nav-icon">↪</span>
       Logout
     </a>
 
-
     <div class="premium-box">
+
       <div class="crown">👑</div>
+
       <h4>Upgrade to Premium</h4>
 
       <p>
@@ -1111,6 +1118,7 @@
       <button onclick="showMessage('Premium membership will be available soon.')">
         Upgrade Now
       </button>
+
     </div>
 
   </aside>
@@ -1128,15 +1136,20 @@
 
       <div class="welcome-left">
 
-        <div class="flag-large" id="largeFlag">
-          🇰🇪
+        <div class="flag-large" id="largeFlag" data-flag>
+          🌍
         </div>
 
         <div>
-          <h1>Good evening, Turkan! 👋</h1>
+
+          <h1>
+            Good evening, <span data-username>NOVAEARN User</span>! 👋
+          </h1>
+
           <p>
             Keep going! Here's your earning overview.
           </p>
+
         </div>
 
       </div>
@@ -1153,6 +1166,7 @@
       <div class="balance-card balance-main">
 
         <div class="card-top">
+
           <span class="card-label">
             Total Balance
           </span>
@@ -1160,15 +1174,19 @@
           <span class="card-icon">
             💳
           </span>
+
         </div>
 
         <div class="balance-value" id="totalBalance">
-          KES 5,420.00
+          <span data-currency>KES</span> 5,420.00
         </div>
 
         <div class="balance-sub">
           Available to withdraw:
-          <strong id="availableBalance">KES 3,920.00</strong>
+
+          <strong id="availableBalance">
+            <span data-currency>KES</span> 3,920.00
+          </strong>
         </div>
 
         <div class="growth">
@@ -1186,7 +1204,7 @@
         </div>
 
         <div class="balance-value" id="todayBalance">
-          KES 620.00
+          <span data-currency>KES</span> 620.00
         </div>
 
         <div class="growth">
@@ -1204,7 +1222,7 @@
         </div>
 
         <div class="balance-value" id="weekBalance">
-          KES 2,480.00
+          <span data-currency>KES</span> 2,480.00
         </div>
 
         <div class="growth">
@@ -1222,7 +1240,7 @@
         </div>
 
         <div class="balance-value" id="earnedBalance">
-          KES 5,420.00
+          <span data-currency>KES</span> 5,420.00
         </div>
 
         <div class="growth">
@@ -1247,11 +1265,16 @@
           <div class="card-header">
 
             <div>
+
               <h2>📈 Earnings Trend</h2>
-              <p>Your earnings over the last 7 days</p>
+
+              <p>
+                Your earnings over the last 7 days
+              </p>
+
             </div>
 
-            <select class="chart-filter">
+            <select class="chart-filter" onchange="drawChart()">
               <option>Last 7 Days</option>
               <option>Last 30 Days</option>
               <option>Last 3 Months</option>
@@ -1270,25 +1293,37 @@
 
         <div class="card quick-actions">
 
-          <button class="quick-action" onclick="quickAction('Withdraw')">
+          <button
+            class="quick-action"
+            onclick="quickAction('Withdraw')"
+          >
             <div class="quick-icon q-green">💸</div>
             <strong>Withdraw</strong>
             <small>Get your money</small>
           </button>
 
-          <button class="quick-action" onclick="quickAction('Deposit')">
+          <button
+            class="quick-action"
+            onclick="quickAction('Deposit')"
+          >
             <div class="quick-icon q-blue">➕</div>
             <strong>Deposit</strong>
             <small>Add funds</small>
           </button>
 
-          <button class="quick-action" onclick="quickAction('Earn Now')">
+          <button
+            class="quick-action"
+            onclick="quickAction('Earn Now')"
+          >
             <div class="quick-icon q-gold">⚡</div>
             <strong>Earn Now</strong>
             <small>Start tasks</small>
           </button>
 
-          <button class="quick-action" onclick="quickAction('Rewards')">
+          <button
+            class="quick-action"
+            onclick="quickAction('Rewards')"
+          >
             <div class="quick-icon q-purple">🎁</div>
             <strong>Rewards</strong>
             <small>Claim rewards</small>
@@ -1304,69 +1339,112 @@
           <div class="card-header">
 
             <div>
+
               <h2>🕐 Recent Activity</h2>
-              <p>Your latest earning activity</p>
+
+              <p>
+                Your latest earning activity
+              </p>
+
             </div>
 
-            <a href="#" class="view-all">View All →</a>
+            <a href="#" class="view-all">
+              View All →
+            </a>
 
           </div>
 
           <div class="activity-list">
 
             <div class="activity">
+
               <div class="activity-icon">💬</div>
 
               <div class="activity-info">
-                <strong>Chatting Task Completed</strong>
-                <small>Today · 08:12 PM</small>
+
+                <strong>
+                  Chatting Task Completed
+                </strong>
+
+                <small>
+                  Today · 08:12 PM
+                </small>
+
               </div>
 
               <div class="activity-amount">
-                +KES 120
+                +<span data-currency>KES</span> 120
               </div>
+
             </div>
 
 
             <div class="activity">
+
               <div class="activity-icon">🎡</div>
 
               <div class="activity-info">
-                <strong>Spin & Win Reward</strong>
-                <small>Today · 06:45 PM</small>
+
+                <strong>
+                  Spin & Win Reward
+                </strong>
+
+                <small>
+                  Today · 06:45 PM
+                </small>
+
               </div>
 
               <div class="activity-amount">
-                +KES 50
+                +<span data-currency>KES</span> 50
               </div>
+
             </div>
 
 
             <div class="activity">
+
               <div class="activity-icon">🏨</div>
 
               <div class="activity-info">
-                <strong>Hotel Review Completed</strong>
-                <small>Today · 04:22 PM</small>
+
+                <strong>
+                  Hotel Review Completed
+                </strong>
+
+                <small>
+                  Today · 04:22 PM
+                </small>
+
               </div>
 
               <div class="activity-amount">
-                +KES 180
+                +<span data-currency>KES</span> 180
               </div>
+
             </div>
 
 
             <div class="activity">
+
               <div class="activity-icon">👥</div>
 
               <div class="activity-info">
-                <strong>Referral Bonus</strong>
-                <small>Today · 02:15 PM</small>
+
+                <strong>
+                  Referral Bonus
+                </strong>
+
+                <small>
+                  Today · 02:15 PM
+                </small>
+
               </div>
 
               <div class="activity-amount">
-                +KES 300
+                +<span data-currency>KES</span> 300
               </div>
+
             </div>
 
           </div>
@@ -1390,7 +1468,9 @@
               📣
             </div>
 
-            <h2>Your Referral Link</h2>
+            <h2>
+              Your Referral Link
+            </h2>
 
             <p>
               Invite friends and earn together!
@@ -1400,11 +1480,14 @@
 
               <input
                 id="referralInput"
-                value="novaearn.com/register?ref=TU12345"
+                value="novaearn.com/register?ref=NOVAEARN"
                 readonly
               >
 
-              <button class="copy-btn" onclick="copyReferral()">
+              <button
+                class="copy-btn"
+                onclick="copyReferral()"
+              >
                 📋
               </button>
 
@@ -1414,18 +1497,37 @@
             <div class="referral-stats">
 
               <div class="ref-stat">
+
                 <strong>12</strong>
-                <small>Total Referrals</small>
+
+                <small>
+                  Total Referrals
+                </small>
+
               </div>
 
+
               <div class="ref-stat">
+
                 <strong>8</strong>
-                <small>Active Referrals</small>
+
+                <small>
+                  Active Referrals
+                </small>
+
               </div>
 
+
               <div class="ref-stat">
-                <strong>KES 2,450</strong>
-                <small>Referral Earnings</small>
+
+                <strong>
+                  <span data-currency>KES</span> 2,450
+                </strong>
+
+                <small>
+                  Referral Earnings
+                </small>
+
               </div>
 
             </div>
@@ -1441,10 +1543,23 @@
 
 
             <div class="share-row">
-              <button onclick="showMessage('WhatsApp sharing will be connected later.')">💬</button>
-              <button onclick="showMessage('Telegram sharing will be connected later.')">➤</button>
-              <button onclick="showMessage('Facebook sharing will be connected later.')">f</button>
-              <button onclick="showMessage('More sharing options coming soon.')">↗</button>
+
+              <button onclick="showMessage('WhatsApp sharing will be connected later.')">
+                💬
+              </button>
+
+              <button onclick="showMessage('Telegram sharing will be connected later.')">
+                ➤
+              </button>
+
+              <button onclick="showMessage('Facebook sharing will be connected later.')">
+                f
+              </button>
+
+              <button onclick="showMessage('More sharing options coming soon.')">
+                ↗
+              </button>
+
             </div>
 
           </div>
@@ -1459,11 +1574,20 @@
           <div class="card-header">
 
             <div>
-              <h2>🎯 Your Task Balances</h2>
-              <p>Earnings by activity</p>
+
+              <h2>
+                🎯 Your Task Balances
+              </h2>
+
+              <p>
+                Earnings by activity
+              </p>
+
             </div>
 
-            <a href="#" class="view-all">View All →</a>
+            <a href="#" class="view-all">
+              View All →
+            </a>
 
           </div>
 
@@ -1471,6 +1595,7 @@
           <div class="task-list">
 
             <div class="task">
+
               <div class="task-icon">💬</div>
 
               <div class="task-name">
@@ -1479,12 +1604,14 @@
               </div>
 
               <div class="task-balance">
-                KES 1,250
+                <span data-currency>KES</span> 1,250
               </div>
+
             </div>
 
 
             <div class="task">
+
               <div class="task-icon">🎡</div>
 
               <div class="task-name">
@@ -1493,12 +1620,14 @@
               </div>
 
               <div class="task-balance">
-                KES 450
+                <span data-currency>KES</span> 450
               </div>
+
             </div>
 
 
             <div class="task">
+
               <div class="task-icon">🏨</div>
 
               <div class="task-name">
@@ -1507,12 +1636,14 @@
               </div>
 
               <div class="task-balance">
-                KES 800
+                <span data-currency>KES</span> 800
               </div>
+
             </div>
 
 
             <div class="task">
+
               <div class="task-icon">📱</div>
 
               <div class="task-name">
@@ -1521,12 +1652,14 @@
               </div>
 
               <div class="task-balance">
-                KES 620
+                <span data-currency>KES</span> 620
               </div>
+
             </div>
 
 
             <div class="task">
+
               <div class="task-icon">🚶</div>
 
               <div class="task-name">
@@ -1535,12 +1668,14 @@
               </div>
 
               <div class="task-balance">
-                KES 340
+                <span data-currency>KES</span> 340
               </div>
+
             </div>
 
 
             <div class="task">
+
               <div class="task-icon">🤖</div>
 
               <div class="task-name">
@@ -1549,8 +1684,9 @@
               </div>
 
               <div class="task-balance">
-                KES 1,100
+                <span data-currency>KES</span> 1,100
               </div>
+
             </div>
 
           </div>
@@ -1569,20 +1705,38 @@
             </div>
 
             <div>
-              <h3>Bigger Goals, Higher Rewards</h3>
-              <p>Keep earning, keep growing!</p>
+
+              <h3>
+                Bigger Goals, Higher Rewards
+              </h3>
+
+              <p>
+                Keep earning, keep growing!
+              </p>
+
             </div>
 
           </div>
 
 
           <div class="progress">
+
             <div class="progress-bar"></div>
+
           </div>
 
+
           <div class="goal-numbers">
-            <span>Next Reward</span>
-            <span>KES 3,920 / 5,000</span>
+
+            <span>
+              Next Reward
+            </span>
+
+            <span>
+              <span data-currency>KES</span>
+              3,920 / 5,000
+            </span>
+
           </div>
 
         </div>
@@ -1594,35 +1748,66 @@
   </main>
 
 
+  <!-- =========================
+       JAVASCRIPT
+  ========================= -->
+
   <script>
 
-    /* =========================
-       COUNTRY + CURRENCY
-    ========================== */
+    /* ==============================
+       NOVAEARN DASHBOARD
+    ============================== */
 
-    const countries = {
+    let user = null;
 
-      KE: {
+    try {
+      user = JSON.parse(
+        localStorage.getItem("novaearnUser")
+      );
+    } catch (error) {
+      user = null;
+    }
+
+
+    /* Redirect if user is not registered */
+
+    if (!user) {
+      window.location.href = "register.html";
+    }
+
+
+    /* ==============================
+       COUNTRY INFORMATION
+    ============================== */
+
+    const countryInfo = {
+
+      Kenya: {
+        code: "KE",
         flag: "🇰🇪",
         currency: "KES"
       },
 
-      GH: {
+      Ghana: {
+        code: "GH",
         flag: "🇬🇭",
         currency: "GHS"
       },
 
-      CM: {
+      Cameroon: {
+        code: "CM",
         flag: "🇨🇲",
         currency: "XAF"
       },
 
-      UG: {
+      Uganda: {
+        code: "UG",
         flag: "🇺🇬",
         currency: "UGX"
       },
 
-      US: {
+      "United States": {
+        code: "US",
         flag: "🇺🇸",
         currency: "USD"
       }
@@ -1630,84 +1815,240 @@
     };
 
 
-    function changeCountry() {
+    /* ==============================
+       FIND COUNTRY
+    ============================== */
 
-      const country =
-        document.getElementById("countrySelect").value;
+    function getCountryInfo(country) {
 
-      const data = countries[country];
+      return countryInfo[country] || {
+        code: "US",
+        flag: "🌍",
+        currency: "USD"
+      };
 
-      document.getElementById("topFlag").textContent =
-        data.flag;
-
-      document.getElementById("largeFlag").textContent =
-        data.flag;
-
-      document.getElementById("totalBalance").textContent =
-        data.currency + " 5,420.00";
-
-      document.getElementById("availableBalance").textContent =
-        data.currency + " 3,920.00";
-
-      document.getElementById("todayBalance").textContent =
-        data.currency + " 620.00";
-
-      document.getElementById("weekBalance").textContent =
-        data.currency + " 2,480.00";
-
-      document.getElementById("earnedBalance").textContent =
-        data.currency + " 5,420.00";
-
-      drawChart(data.currency);
-
-      localStorage.setItem("novaearnCountry", country);
     }
 
 
-    /* =========================
+    /* ==============================
+       LOAD USER INFORMATION
+    ============================== */
+
+    function loadUserInformation() {
+
+      if (!user) return;
+
+      const info = getCountryInfo(user.country);
+
+
+      /* Username */
+
+      document
+        .querySelectorAll("[data-username]")
+        .forEach(element => {
+
+          element.textContent =
+            user.username || "NOVAEARN User";
+
+        });
+
+
+      /* Flag */
+
+      document
+        .querySelectorAll("[data-flag]")
+        .forEach(element => {
+
+          element.textContent = info.flag;
+
+        });
+
+
+      /* Currency */
+
+      document
+        .querySelectorAll("[data-currency]")
+        .forEach(element => {
+
+          element.textContent = info.currency;
+
+        });
+
+
+      /* Avatar */
+
+      const avatar =
+        document.getElementById("avatarLetter");
+
+      if (avatar) {
+
+        avatar.textContent =
+          (user.username || "N")
+          .charAt(0)
+          .toUpperCase();
+
+      }
+
+
+      /* Country selector */
+
+      const selector =
+        document.getElementById("countrySelect");
+
+      if (selector) {
+
+        selector.value = info.code;
+
+      }
+
+
+      /* Referral link */
+
+      const referralInput =
+        document.getElementById("referralInput");
+
+      if (referralInput) {
+
+        const username =
+          encodeURIComponent(
+            user.username || "USER"
+          );
+
+        referralInput.value =
+          "novaearn.com/register?ref=" + username;
+
+      }
+
+    }
+
+
+    /* ==============================
+       CHANGE COUNTRY
+    ============================== */
+
+    function changeCountry() {
+
+      const selector =
+        document.getElementById("countrySelect");
+
+      if (!selector) return;
+
+      const code = selector.value;
+
+      const countryMap = {
+
+        KE: "Kenya",
+        GH: "Ghana",
+        CM: "Cameroon",
+        UG: "Uganda",
+        US: "United States"
+
+      };
+
+      const country =
+        countryMap[code];
+
+      const info =
+        getCountryInfo(country);
+
+
+      /* Update flag */
+
+      const topFlag =
+        document.getElementById("topFlag");
+
+      const largeFlag =
+        document.getElementById("largeFlag");
+
+      if (topFlag) {
+        topFlag.textContent = info.flag;
+      }
+
+      if (largeFlag) {
+        largeFlag.textContent = info.flag;
+      }
+
+
+      /* Update all currency labels */
+
+      document
+        .querySelectorAll("[data-currency]")
+        .forEach(element => {
+
+          element.textContent =
+            info.currency;
+
+        });
+
+
+      /* Save selected country */
+
+      localStorage.setItem(
+        "novaearnCountry",
+        country
+      );
+
+      if (user) {
+
+        user.country = country;
+        user.currency = info.currency;
+        user.flag = info.flag;
+
+        localStorage.setItem(
+          "novaearnUser",
+          JSON.stringify(user)
+        );
+
+      }
+
+
+      drawChart();
+
+    }
+
+
+    /* ==============================
        THEME
-    ========================== */
+    ============================== */
 
     function toggleTheme() {
 
       document.body.classList.toggle("light");
 
-      const light =
+      const lightMode =
         document.body.classList.contains("light");
 
       localStorage.setItem(
         "novaearnTheme",
-        light ? "light" : "dark"
+        lightMode ? "light" : "dark"
       );
+
+      drawChart();
+
     }
 
 
-    /* =========================
+    /* ==============================
        MOBILE SIDEBAR
-    ========================== */
+    ============================== */
 
     function toggleSidebar() {
 
-      document
-        .getElementById("sidebar")
-        .classList.toggle("open");
+      const sidebar =
+        document.querySelector(".sidebar");
+
+      if (sidebar) {
+
+        sidebar.classList.toggle("open");
+
+      }
 
     }
 
 
-    /* =========================
-       QUICK ACTIONS
-    ========================== */
-
-    function quickAction(action) {
-
-      alert(
-        action +
-        " section will be connected when we build the real wallet and activities."
-      );
-
-    }
-
+    /* ==============================
+       MESSAGE
+    ============================== */
 
     function showMessage(message) {
 
@@ -1716,150 +2057,286 @@
     }
 
 
-    /* =========================
-       REFERRAL
-    ========================== */
+    /* ==============================
+       QUICK ACTIONS
+    ============================== */
 
-    function copyReferral() {
+    function quickAction(action) {
 
-      const input =
-        document.getElementById("referralInput");
-
-      navigator.clipboard.writeText(input.value);
-
-      alert("Referral link copied! 📋");
+      showMessage(
+        action + " will be connected when the NOVAEARN earning system is activated."
+      );
 
     }
 
 
-    /* =========================
+    /* ==============================
+       REFERRAL COPY
+    ============================== */
+
+    function copyReferral() {
+
+      const referralInput =
+        document.getElementById("referralInput");
+
+      if (!referralInput) return;
+
+
+      if (
+        navigator.clipboard &&
+        navigator.clipboard.writeText
+      ) {
+
+        navigator.clipboard
+          .writeText(referralInput.value)
+          .then(() => {
+
+            showMessage(
+              "Referral link copied successfully! 📋"
+            );
+
+          })
+          .catch(() => {
+
+            fallbackCopy(referralInput);
+
+          });
+
+      } else {
+
+        fallbackCopy(referralInput);
+
+      }
+
+    }
+
+
+    function fallbackCopy(input) {
+
+      input.select();
+      input.setSelectionRange(
+        0,
+        99999
+      );
+
+      document.execCommand("copy");
+
+      showMessage(
+        "Referral link copied successfully! 📋"
+      );
+
+    }
+
+
+    /* ==============================
        DATE
-    ========================== */
+    ============================== */
 
     function updateDate() {
 
-      const now = new Date();
+      const dateElement =
+        document.getElementById("currentDate");
 
-      document.getElementById("currentDate").textContent =
-        now.toLocaleDateString(
-          undefined,
+      if (!dateElement) return;
+
+      const today = new Date();
+
+      dateElement.textContent =
+        today.toLocaleDateString(
+          "en-US",
           {
-            weekday: "short",
-            day: "2-digit",
-            month: "short",
-            year: "numeric"
-          }
-        ) +
-        " · " +
-        now.toLocaleTimeString(
-          undefined,
-          {
-            hour: "2-digit",
-            minute: "2-digit"
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric"
           }
         );
 
     }
 
 
-    /* =========================
-       EARNINGS GRAPH
-    ========================== */
+    /* ==============================
+       LOGOUT
+    ============================== */
 
-    function drawChart(currency = "KES") {
+    function logoutUser() {
+
+      localStorage.removeItem(
+        "novaearnUser"
+      );
+
+    }
+
+
+    /* ==============================
+       EARNINGS CHART
+    ============================== */
+
+    function drawChart() {
 
       const canvas =
-        document.getElementById("earningsChart");
+        document.getElementById(
+          "earningsChart"
+        );
 
-      const ctx = canvas.getContext("2d");
+      if (!canvas) return;
+
+      const ctx =
+        canvas.getContext("2d");
 
       const rect =
         canvas.getBoundingClientRect();
 
-      const ratio =
+      const dpr =
         window.devicePixelRatio || 1;
 
       canvas.width =
-        rect.width * ratio;
+        rect.width * dpr;
 
       canvas.height =
-        rect.height * ratio;
+        rect.height * dpr;
 
-      ctx.scale(ratio, ratio);
+      ctx.setTransform(
+        dpr,
+        0,
+        0,
+        dpr,
+        0,
+        0
+      );
+
 
       const width = rect.width;
       const height = rect.height;
 
-      const values =
-        [120, 340, 300, 520, 650, 840, 1080];
 
-      const labels =
-        ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+      /* Clear */
 
-      const padding = 38;
+      ctx.clearRect(
+        0,
+        0,
+        width,
+        height
+      );
+
+
+      /* Demo earnings */
+
+      const values = [
+        180,
+        310,
+        260,
+        450,
+        390,
+        540,
+        620
+      ];
+
+      const labels = [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
+        "Sun"
+      ];
+
+
+      const padding = {
+        left: 45,
+        right: 15,
+        top: 20,
+        bottom: 35
+      };
+
 
       const chartWidth =
-        width - padding * 2;
+        width -
+        padding.left -
+        padding.right;
 
       const chartHeight =
-        height - padding * 2;
+        height -
+        padding.top -
+        padding.bottom;
 
-      const max =
-        Math.max(...values) + 200;
 
-
-      /* Background */
-
-      ctx.clearRect(0,0,width,height);
+      const maxValue = 700;
 
 
       /* Grid */
 
       ctx.strokeStyle =
-        "rgba(90,140,210,.13)";
+        document.body.classList.contains("light")
+          ? "#dce6f5"
+          : "rgba(255,255,255,.08)";
 
       ctx.lineWidth = 1;
 
-      for(let i = 0; i <= 4; i++) {
+      for (let i = 0; i <= 4; i++) {
 
         const y =
-          padding +
-          chartHeight * (i / 4);
+          padding.top +
+          (chartHeight / 4) * i;
 
         ctx.beginPath();
 
-        ctx.moveTo(padding,y);
+        ctx.moveTo(
+          padding.left,
+          y
+        );
 
         ctx.lineTo(
-          width - padding,
+          width - padding.right,
           y
         );
 
         ctx.stroke();
+
+
+        ctx.fillStyle =
+          document.body.classList.contains("light")
+            ? "#65748f"
+            : "#91a4c7";
+
+        ctx.font = "9px Arial";
+
+        ctx.fillText(
+          String(
+            Math.round(
+              maxValue -
+              (maxValue / 4) * i
+            )
+          ),
+          5,
+          y + 3
+        );
 
       }
 
 
       /* Points */
 
-      const points =
-        values.map((value,index) => {
+      const points = values.map(
+        (value, index) => {
 
           const x =
-            padding +
-            (chartWidth *
-            index /
-            (values.length - 1));
+            padding.left +
+            (chartWidth /
+              (values.length - 1)) *
+              index;
 
           const y =
-            padding +
+            padding.top +
             chartHeight -
-            (value / max) *
-            chartHeight;
+            (value / maxValue) *
+              chartHeight;
 
-          return {x,y,value};
+          return { x, y };
 
-        });
+        }
+      );
 
 
       /* Gradient fill */
@@ -1867,19 +2344,19 @@
       const gradient =
         ctx.createLinearGradient(
           0,
-          0,
+          padding.top,
           0,
           height
         );
 
       gradient.addColorStop(
         0,
-        "rgba(0,217,255,.28)"
+        "rgba(23,105,255,.30)"
       );
 
       gradient.addColorStop(
         1,
-        "rgba(123,53,255,.02)"
+        "rgba(23,105,255,0)"
       );
 
 
@@ -1887,19 +2364,21 @@
 
       ctx.moveTo(
         points[0].x,
-        height - padding
+        height - padding.bottom
       );
 
       points.forEach(point => {
+
         ctx.lineTo(
           point.x,
           point.y
         );
+
       });
 
       ctx.lineTo(
         points[points.length - 1].x,
-        height - padding
+        height - padding.bottom
       );
 
       ctx.closePath();
@@ -1913,41 +2392,29 @@
 
       ctx.beginPath();
 
-      points.forEach((point,index) => {
+      points.forEach(
+        (point, index) => {
 
-        if(index === 0) {
-          ctx.moveTo(point.x,point.y);
-        } else {
+          if (index === 0) {
 
-          ctx.lineTo(
-            point.x,
-            point.y
-          );
+            ctx.moveTo(
+              point.x,
+              point.y
+            );
+
+          } else {
+
+            ctx.lineTo(
+              point.x,
+              point.y
+            );
+
+          }
 
         }
-
-      });
-
-      const lineGradient =
-        ctx.createLinearGradient(
-          0,
-          0,
-          width,
-          0
-        );
-
-      lineGradient.addColorStop(
-        0,
-        "#00d9ff"
       );
 
-      lineGradient.addColorStop(
-        1,
-        "#7b35ff"
-      );
-
-      ctx.strokeStyle =
-        lineGradient;
+      ctx.strokeStyle = "#1769ff";
 
       ctx.lineWidth = 3;
 
@@ -1968,13 +2435,11 @@
           Math.PI * 2
         );
 
-        ctx.fillStyle =
-          "#06142f";
+        ctx.fillStyle = "#00d9ff";
 
         ctx.fill();
 
-        ctx.strokeStyle =
-          "#00d9ff";
+        ctx.strokeStyle = "#ffffff";
 
         ctx.lineWidth = 2;
 
@@ -1985,93 +2450,88 @@
 
       /* Labels */
 
-      ctx.font =
-        "10px Arial";
+      labels.forEach(
+        (label, index) => {
 
-      ctx.fillStyle =
-        "#91a4c7";
+          const point =
+            points[index];
 
-      labels.forEach((label,index) => {
+          ctx.fillStyle =
+            document.body.classList.contains("light")
+              ? "#65748f"
+              : "#91a4c7";
 
-        const x =
-          padding +
-          chartWidth *
-          index /
-          (labels.length - 1);
+          ctx.font =
+            "10px Arial";
 
-        ctx.textAlign = "center";
+          ctx.textAlign =
+            "center";
 
-        ctx.fillText(
-          label,
-          x,
-          height - 8
-        );
+          ctx.fillText(
+            label,
+            point.x,
+            height - 10
+          );
 
-      });
-
-
-      /* Currency label */
+        }
+      );
 
       ctx.textAlign = "left";
-
-      ctx.fillText(
-        currency + " 1,200",
-        3,
-        13
-      );
 
     }
 
 
-    /* =========================
-       INITIALIZE
-    ========================== */
+    /* ==============================
+       LOAD DASHBOARD
+    ============================== */
 
     window.addEventListener(
-      "load",
+      "DOMContentLoaded",
       () => {
 
-        const savedCountry =
-          localStorage.getItem(
-            "novaearnCountry"
-          );
-
-        if(savedCountry) {
-
-          document.getElementById(
-            "countrySelect"
-          ).value = savedCountry;
-
-        }
+        /* Theme */
 
         const savedTheme =
           localStorage.getItem(
             "novaearnTheme"
           );
 
-        if(savedTheme === "light") {
-          document.body.classList.add("light");
+        if (savedTheme === "light") {
+
+          document.body.classList.add(
+            "light"
+          );
+
         }
 
-        changeCountry();
+
+        /* User */
+
+        loadUserInformation();
+
+
+        /* Date */
+
         updateDate();
+
+
+        /* Chart */
+
+        drawChart();
 
       }
     );
 
 
+    /* ==============================
+       REDRAW CHART ON RESIZE
+    ============================== */
+
     window.addEventListener(
       "resize",
       () => {
 
-        const country =
-          document.getElementById(
-            "countrySelect"
-          ).value;
-
-        drawChart(
-          countries[country].currency
-        );
+        drawChart();
 
       }
     );
